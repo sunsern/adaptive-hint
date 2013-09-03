@@ -9,12 +9,13 @@ import tornado.web
 import sockjs.tornado
 import json
 import logging
-
+import urllib
+import urllib2
 
 # Server Configurations 
 BIND_IP = '0.0.0.0'
 LISTEN_PORT = 4350
-
+REST_API = 'http://localhost:4351'
 
 def add_handler(handlers, command):
     """Decorative function for adding a command handler."""
@@ -51,9 +52,12 @@ class StudentConnection(sockjs.tornado.SockJSConnection):
         @add_handler(self.handlers, 'checkanswer')
         def handle_checkanswer(self, args): pass
 
-        @add_handler(self.handlers, 'userinfo')
-        def handle_userinfo(self, args): pass
-
+        @add_handler(self.handlers, 'student_info')
+        def handle_student_info(self, args):
+            self.student_name = args['name']
+            self.pg_path = ("/opt/webwork/courses/UCSD_CSE103/templates/" +
+                            args['pg'])
+            
     def on_open(self, info):
         """Callback for when a student is connected"""
         ActiveClients.students.add(self)
@@ -63,12 +67,13 @@ class StudentConnection(sockjs.tornado.SockJSConnection):
         """Callback for when a message is received"""
         try:
             message = json.loads(message)
-            logging.info("[%s] student command: %s"%(self.session.conn_info.ip,
-                                                     message['command']))
+            logging.info("[%s] student command: %s"%(
+                self.session.conn_info.ip,
+                message['command']))
             f = self.handlers[message['command']]
             f(self, message['arguments'])
         except KeyError:
-            pass
+            logging.warning("unhandled command")
         except Exception:
             import traceback
             traceback.print_exc()
@@ -88,7 +93,25 @@ class TeacherConnection(sockjs.tornado.SockJSConnection):
         self.handlers = {}
 
         @add_handler(self.handlers, 'list_students')
-        def handle_list_student(self, args): pass
+        def handle_list_student(self, args):
+            """
+            """
+            names = [s.student_name for s in ActiveClients.students]
+            self.send(json.dumps(names))
+
+        @add_handler(self.handlers, 'send_hint')
+        def handle_send_hint(self, args):
+            hint = "<div>hint</div>"
+            self.broadcast(ActiveClients.students, hint)
+            
+        @add_handler(self.handlers, 'render_hint')
+        def handle_render_hint(self, args):
+            url = REST_API + "/render"
+            values = {'somekey':'somevalue'}
+            data = urllib.urlencode(values)
+            req = urllib2.Request(url, data)
+            response = urllib2.urlopen(req)
+            self.send(response.read())
             
     def on_open(self, info):
         """Callback for when a teacher is connected"""
@@ -98,12 +121,13 @@ class TeacherConnection(sockjs.tornado.SockJSConnection):
         """Callback for when a message is received"""
         try:
             message = json.loads(message)
-            logging.info("[%s] teacher command: %s"%(self.session.conn_info.ip,
-                                                     message['command']))
+            logging.info("[%s] teacher command: %s"%(
+                self.session.conn_info.ip,
+                message['command']))
             f = self.handlers[message['command']]
             f(self, message['arguments'])
         except KeyError:
-            pass
+            logging.warning("unhandled command")
         except Exception:
             import traceback
             traceback.print_exc()

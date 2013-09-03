@@ -39,7 +39,7 @@ class Render(tornado.web.RequestHandler):
     """Render PG"""
     def post(self):
         """POST /render"""
-        response = { 'rendered_html': '' }
+        response = { 'rendered_html': '<div>PG</div>' }
         self.write(response)
  
 class CheckAnswer(tornado.web.RequestHandler):

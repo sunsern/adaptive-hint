@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
 <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
@@ -8,26 +9,48 @@
 
 <h1>SockJS Client::Student</h1>
 
-<button type="button" id="keypressed">Send 'keypressed'</button>
+<div>
+<button type="button" id="keypressed">'keypressed'</button>
+</div>
+
+<div>
+<textarea id="textarea" rows="10" cols="80"></textarea>
+</div>
 
 <script>
+    function append_msg(msg) {
+	var textbox = $("#textarea");
+	textbox.val(textbox.val() + msg + "\n");
+    }
+
     $(document).ready(function() {
 	sock = new SockJS('http://127.0.0.1:4350/student');
 	sock.onopen = function() {
-	    console.log('open');
+	    append_msg("connected");
+	    // Send stuent info
+	    var randomNum = Math.ceil(Math.random()*10000);
+	    sock.send(JSON.stringify({"command": "student_info", 
+				      "arguments": {
+					  "name": "student" + randomNum,
+					  "pg": "setAssignment6/InvisibleOrFly.pg"
+				      }}));
+	    
 	};
 	sock.onmessage = function(e) {
-	    console.log('message', e.data);
+	    append_msg("server message: " + e.data);
 	};
 	sock.onclose = function() {
-	    console.log('close');
+	    append_msg("disconnected");
 	};
-	console.log( "document loaded" );
 	
 	$("#keypressed").click(function() {
 	    sock.send(JSON.stringify({"command" : "keypressed", 
 				      "arguments" : {}}));
+	    append_msg("sent 'keypressed'");
 	});
+	
+	append_msg("document loaded");
+	
     });  
 </script>
 
