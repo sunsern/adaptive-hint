@@ -10,9 +10,11 @@ import sockjs.tornado
 import json
 import logging
 
+
 # Server Configurations 
-BIND_IP = '127.0.0.1'
+BIND_IP = '0.0.0.0'
 LISTEN_PORT = 4350
+
 
 def add_handler(handlers, command):
     """Decorative function for adding a command handler."""
@@ -31,8 +33,8 @@ class ActiveClients(object):
 
 
 class StudentConnection(sockjs.tornado.SockJSConnection):
-    """Student connection implementation"""
-    
+    """Student connection implementation""" 
+   
     def __init__(self, *args, **kwargs):
         super(StudentConnection, self).__init__(*args, **kwargs)
         self.student_id = ''
@@ -61,6 +63,8 @@ class StudentConnection(sockjs.tornado.SockJSConnection):
         """Callback for when a message is received"""
         try:
             message = json.loads(message)
+            logging.info("[%s] student command: %s"%(self.session.conn_info.ip,
+                                                     message['command']))
             f = self.handlers[message['command']]
             f(self, message['arguments'])
         except KeyError:
@@ -83,10 +87,9 @@ class TeacherConnection(sockjs.tornado.SockJSConnection):
         # Define message handlers
         self.handlers = {}
 
-        @add_handler(self.handlers, 'list_student')
+        @add_handler(self.handlers, 'list_students')
         def handle_list_student(self, args): pass
             
-
     def on_open(self, info):
         """Callback for when a teacher is connected"""
         ActiveClients.teachers.add(self)
@@ -95,6 +98,8 @@ class TeacherConnection(sockjs.tornado.SockJSConnection):
         """Callback for when a message is received"""
         try:
             message = json.loads(message)
+            logging.info("[%s] teacher command: %s"%(self.session.conn_info.ip,
+                                                     message['command']))
             f = self.handlers[message['command']]
             f(self, message['arguments'])
         except KeyError:
@@ -108,21 +113,20 @@ class TeacherConnection(sockjs.tornado.SockJSConnection):
         ActiveClients.teachers.remove(self)
         
 
-
 if __name__ == "__main__":
     logging.getLogger().setLevel(logging.DEBUG)
 
-    # 1. Create routers
+    # Create routers
     StudentRouter = sockjs.tornado.SockJSRouter(StudentConnection, '/student')
     TeacherRouter = sockjs.tornado.SockJSRouter(TeacherConnection, '/teacher')
 
-    # 2. Create Tornado application
+    # Create Tornado application
     app = tornado.web.Application(StudentRouter.urls +
                                   TeacherRouter.urls)
 
-    # 3. Make Tornado app listen on port 8080
+    # Make Tornado app listen on port 8080
     app.listen(LISTEN_PORT, address=BIND_IP)
     logging.info(" [*] Listening on %s:%d"%(BIND_IP,LISTEN_PORT))
     
-    # 4. Start IOLoop
+    # Start IOLoop
     tornado.ioloop.IOLoop.instance().start()

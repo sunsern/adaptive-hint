@@ -6,9 +6,9 @@
 <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
 
-<h1>My First Heading</h1>
+<h1>SockJS Client::Student</h1>
 
-<p id="button">SockJS client test</p>
+<button type="button" id="keypressed">Send 'keypressed'</button>
 
 <script>
     $(document).ready(function() {
@@ -24,7 +24,7 @@
 	};
 	console.log( "document loaded" );
 	
-	$("#button").click(function() {
+	$("#keypressed").click(function() {
 	    sock.send(JSON.stringify({"command" : "keypressed", 
 				      "arguments" : {}}));
 	});

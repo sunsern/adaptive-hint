@@ -6,13 +6,13 @@
 <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
 
-<h1>My First Heading</h1>
+<h1>SockJS Client::Teacher</h1>
 
-<p id="button">SockJS client test</p>
+<button type="button" id="list_students">Send 'list_students'</button>
 
 <script>
     $(document).ready(function() {
-	sock = new SockJS('http://127.0.0.1:4350/student');
+	sock = new SockJS('http://127.0.0.1:4350/teacher');
 	sock.onopen = function() {
 	    console.log('open');
 	};
@@ -24,8 +24,8 @@
 	};
 	console.log( "document loaded" );
 	
-	$("#button").click(function() {
-	    sock.send(JSON.stringify({"command" : "keypressed", 
+	$("#list_students").click(function() {
+	    sock.send(JSON.stringify({"command" : "list_students", 
 				      "arguments" : {}}));
 	});
     });  
