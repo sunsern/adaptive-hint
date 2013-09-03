@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
+
+<h1>My First Heading</h1>
+
+<p id="button">SockJS client test</p>
+
+<script>
+    $(document).ready(function() {
+	sock = new SockJS('http://127.0.0.1:4350/student');
+	sock.onopen = function() {
+	    console.log('open');
+	};
+	sock.onmessage = function(e) {
+	    console.log('message', e.data);
+	};
+	sock.onclose = function() {
+	    console.log('close');
+	};
+	console.log( "document loaded" );
+	
+	$("#button").click(function() {
+	    sock.send(JSON.stringify({"command" : "keypressed", 
+				      "arguments" : {}}));
+	});
+    });  
+</script>
+
+</body>
+</html>
