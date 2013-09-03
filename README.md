@@ -1,6 +1,13 @@
 adaptive-hint
 =============
 
+Requirements
+------------
+```
+sockjs-tornado==1.0.0
+tornado==3.1.1
+```
+
 rest_server.py
 --------------
 #### PG Resources
