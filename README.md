@@ -20,11 +20,11 @@ rest_server.py
 
 sockjs_server.py
 ----------------
-# Student commands
+#### Student commands
   - ```userinfo``` -- Update student's info 
   - ```keypressed``` -- Send a keystroke
   - ```checkanswer``` -- Check answers
   
-# Teacher command
+#### Teacher command
   - ```list_students``` -- List all connected students
   - ```send_hint``` -- Send a hint to a student
