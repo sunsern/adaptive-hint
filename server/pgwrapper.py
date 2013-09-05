@@ -122,7 +122,7 @@ def checkanswer(pg_file, answers, seed=1234):
             results["AnSwEr%04d"%(int(key))] = { 'entered_value' : entered_value,
                                                 'correct_value' : correct_value,
                                                 'is_correct' : is_correct,
-                                                'error' : error }
+                                                'error_msg' : error }
         
         return results
             
