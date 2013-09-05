@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
+<script src="student.js"></script>
+
+<h1>SockJS Client::Student</h1>
+
+<div id="problem-body" style="margin: 50px;">
+  <h3>Fake problem</h3>
+  <form id="fake-problem" action="student.html" method="get">
+    <div id="problem-content" class="problem-content">(1 pt) 
+      <B>Library/NAU/setCounting/counting1.pg</B><BR>There are 15 portable mini suites (a.k.a. cages) in a row at the Paws and Claws Holiday 
+      Pet Resort. They are neatly labeled with their guests' names. There are 7 
+      poodles and 8 tabbies. How many ways can the "suites" be arranged if:
+      <BR/>
+      a) there are no restrictions.
+      <BR/>
+      <input type=text class="codeshard" size=10 name="AnSwEr0001" id="AnSwEr0001" value=""/>
+      <input type=hidden  name="previous_AnSwEr0001" value=""/>
+      
+      <BR/>
+      b) cats and dogs must alternate.
+      <BR/>
+      <input type=text class="codeshard" size=10 name="AnSwEr0002" id="AnSwEr0002" value=""/>
+      <input type=hidden  name="previous_AnSwEr0002" value=""/>
+      
+      <BR/>
+      c) dogs must be next to each other.
+      <BR/>
+      <input type=text class="codeshard" size=10 name="AnSwEr0003" id="AnSwEr0003" value=""/>
+      <input type=hidden  name="previous_AnSwEr0003" value=""/>
+      
+      <BR/>
+      d) dogs must be next to each other and cats must be next to each other.
+      <BR/>
+      <input type=text class="codeshard" size=10 name="AnSwEr0004" id="AnSwEr0004" value=""/>
+      <input type=hidden  name="previous_AnSwEr0004" value=""/>
+      
+      <BR/>
+
+    </div>
+    <input type="hidden" id="student_id" name="student_id" value="23"/>
+    <input type="submit" value="Submit">
+  </form>
+</div>
+
+<div>
+Debug Output
+<br>
+<textarea id="textarea" rows="50" cols="80"></textarea>
+</div>
+
+</body>
+</html>
