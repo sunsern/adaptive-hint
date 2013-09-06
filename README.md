@@ -9,7 +9,7 @@ tornado==3.1.1
 ```
 
 
-REST API [\[server/rest_server.py\]](https://github.com/sunsern/adaptive-hint/blob/master/server/rest_server.py)
+REST API [\[rest_server.py\]](https://github.com/sunsern/adaptive-hint/blob/master/server/rest_server/rest_server.py)
 ---------------------------------
 #### PG Resources / Matt
   - ```POST /pg``` -- Retrieve PG source from a path 
@@ -54,7 +54,7 @@ REST API [\[server/rest_server.py\]](https://github.com/sunsern/adaptive-hint/bl
 }
 ```
 
-Messaging API [\[server/sockjs_server.py\]](https://github.com/sunsern/adaptive-hint/blob/master/server/sockjs_server.py)
+Messaging API [\[sockjs_server.py\]](https://github.com/sunsern/adaptive-hint/blob/master/server/sockjs_server/sockjs_server.py)
 ---------------------------------------
 A valid message must be in the following format:
 ```javascript
