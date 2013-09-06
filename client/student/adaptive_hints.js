@@ -35,6 +35,12 @@ $(document).ready(function() {
     };
 
     sock.onmessage = function(e) {
+    	// Process the received messages here.
+    	// If...
+    	//   message = 'hint': insert the hint to a proper place.
+    	//                     Register actions with the new box.
+    	//   message = 'answer_status': set color of the box according the correctness.
+    	//    Correct = blue, Incorrect = red, Malformed answer = orange
 	console.log("RECIEVED: " + e.data);
     };
 
@@ -49,6 +55,8 @@ $(document).ready(function() {
 		     'value': this.value };
 	send_command(sock, 'newstring', args);
     });
+
+    // Add a handler for time-out on "[id^=AnSwEr]"
 
     console.log("INFO: document loaded");
 });  
