@@ -24,7 +24,7 @@ REST API [\[rest_server.py\]](https://github.com/sunsern/adaptive-hint/blob/mast
     - input: ```pg_file=/opt/webwork/.../sample.pg&seed=123```
     - JSON output: 
 
-```
+```javascript
 { 'status': 'OK', 
   'html': '<div>Problem</div>' 
 }
@@ -35,7 +35,7 @@ REST API [\[rest_server.py\]](https://github.com/sunsern/adaptive-hint/blob/mast
     - input: ```pg_file=/opt/webwork/.../sample.pg&seed=123&AnSwEr0001=42&AnSwEr0002=x```
     - JSON output: 
 
-```json
+```javascript
 { 'status': 'OK', 
   'results': { 
     'AnSwEr0001' : {
