@@ -1,4 +1,4 @@
-## Directories and Files
+## Files
 - [sockjs_server.py](sockjs_server.py) -- Starts the SockJS server.
 - [student_conn.py](student_conn.py) -- Handler for student connections (via ``\student``).
 - [teacher_conn.py](teacher_conn.py) -- Handler for teach connections (via ``\teacher``).
