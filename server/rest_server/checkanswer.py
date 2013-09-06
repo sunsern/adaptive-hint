@@ -13,7 +13,16 @@ class CheckAnswer(tornado.web.RequestHandler):
     @tornado.web.asynchronous
     @tornado.gen.coroutine
     def post(self):
-        """POST /checkanswer"""
+        """POST /checkanswer
+        
+        checkanswer makes a call to a perl script scripts/checkanswer.pl. More info [link].
+        
+        Inputs:
+          pg_file: ...
+          seed: ...
+        Output:
+          Answer dictionary descrbied in pg_wrapper.py
+        """
         pg_file = self.get_argument("pg_file", default='', strip=False)
         seed = self.get_argument("seed", default='1', strip=False)
 
