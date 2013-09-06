@@ -7,4 +7,4 @@
 - [scripts/checkanswer.pl](scripts/checkanswer.pl) -- Perl script for checking answers with a PG file.
 
 ## Interaction with PG
-- [pg_wrapper.md](pg_wrapper.md)
+- Read [pg_wrapper.md](pg_wrapper.md)
