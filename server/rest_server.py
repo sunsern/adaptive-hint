@@ -1,7 +1,10 @@
 import tornado.ioloop
 import tornado.web
 import logging
- 
+
+from render import Render 
+from checkanswer import CheckAnswer
+
 # Server configuration
 BIND_IP = '0.0.0.0'
 LISTEN_PORT = 4351
@@ -35,21 +38,7 @@ class Hint(tornado.web.RequestHandler):
         response = {'result': 'done' }
         self.write(response)
 
-class Render(tornado.web.RequestHandler):
-    """Render PG"""
-    def post(self):
-        """POST /render"""
-        response = { 'rendered_html': '<div>PG</div>' }
-        self.write(response)
  
-class CheckAnswer(tornado.web.RequestHandler):
-    """Check answer"""
-    def post(self):
-        """POST /checkanswer"""
-        answers = self.get_argument('answers', '')
-        response = { 'results' : [True, False] }
-        self.write(response)
-        
     
 application = tornado.web.Application([
         (r"/pg/([0-9]+)", PG),

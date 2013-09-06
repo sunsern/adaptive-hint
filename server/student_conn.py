@@ -31,12 +31,9 @@ class StudentConnection(_BaseConnection):
                 # broadcast 'student_joined' to teachers
                 self.broadcast(
                     ActiveClients.teachers,
-                    json.dumps({
-                        'command': 'student_joined',
-                        'arguments': {
-                            'student_id': self.student_id
-                            }
-                        }))
+                    json.dumps({'command': 'student_joined',
+                                'arguments': args
+                                }))
             except KeyError:
                 self.session.close()
                 

@@ -1,3 +1,4 @@
+from tornado.httpclient import AsyncHTTPClient
 import json
 import logging
 
@@ -36,13 +37,7 @@ class TeacherConnection(_BaseConnection):
             self.broadcast(ActiveClients.students, hint)
             
         @self.add_handler('render_hint')
-        def handle_render_hint(self, args):
-            url = REST_API + "/render"
-            values = {'somekey':'somevalue'}
-            data = urllib.urlencode(values)
-            req = urllib2.Request(url, data)
-            response = urllib2.urlopen(req)
-            self.send(response.read())
+        def handle_render_hint(self, args): pass
             
     def on_open(self, info):
         """Callback for when a teacher is connected"""
