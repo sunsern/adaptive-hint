@@ -5,7 +5,7 @@ import urllib
 
 # scripts' location
 _SCRIPTDIR = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                          '../scripts')
+                          'scripts')
 _RENDERPG = os.path.join(_SCRIPTDIR,'renderPG.pl')
 _CHECKANSWER = os.path.join(_SCRIPTDIR,'checkanswer.pl')
 

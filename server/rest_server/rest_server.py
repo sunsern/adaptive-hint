@@ -7,7 +7,7 @@ from checkanswer import CheckAnswer
 
 # Server configuration
 BIND_IP = '0.0.0.0'
-LISTEN_PORT = 4351
+DEFAULT_PORT = 4351
 
 class PG(tornado.web.RequestHandler):
     """PG Resource (REST API)"""
@@ -48,9 +48,17 @@ application = tornado.web.Application([
         ])
  
 if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--port",
+                        type=int,
+                        default=DEFAULT_PORT,
+                        help="port to listen")
+    args = parser.parse_args()
+
     logging.getLogger().setLevel(logging.DEBUG)
 
-    application.listen(LISTEN_PORT, address=BIND_IP)
-    logging.info(" [*] Listening on %s:%d"%(BIND_IP,LISTEN_PORT))
+    application.listen(args.port, address=BIND_IP)
+    logging.info(" [*] Listening on %s:%d"%(BIND_IP,args.port))
     
     tornado.ioloop.IOLoop.instance().start()

@@ -2,11 +2,11 @@ import tornado.ioloop
 import tornado.web
 import tornado.gen
 import logging
-import pgwrapper
+import pg_wrapper
 import os
 
 def task_render(pg_file, seed, callback=None):
-    callback(pgwrapper.render_pg(pg_file, int(seed)))
+    callback(pg_wrapper.render_pg(pg_file, int(seed)))
  
 class Render(tornado.web.RequestHandler):
     """Render PG"""

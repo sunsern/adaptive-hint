@@ -1,17 +1,5 @@
 (function() {
 
-// Parse GET parameters from the URL
-function queryObj() {
-    var result = {}, keyValuePairs = location.search.slice(1).split('&');
-
-    keyValuePairs.forEach(function(keyValuePair) {
-        keyValuePair = keyValuePair.split('=');
-        result[keyValuePair[0]] = keyValuePair[1] || '';
-    });
-
-    return result;
-}
-
 
 // Send a command to SockJS server
 function send_command(sock, cmd, args) {
@@ -25,11 +13,10 @@ $(document).ready(function() {
     
     // Gather student's info
     var pathArray = window.location.pathname.split('/');
-    var q = queryObj();
     var course_id = pathArray[2];
     var set_id = pathArray[3];
     var problem_id = pathArray[4];
-    var student_id = q['effectiveUser'];
+    var student_id = $("#hidden_effectiveUser").val();
 
     // Create a SockJS connection to the server
     sock = new SockJS("http://webwork.cse.ucsd.edu:4350/student");
@@ -42,7 +29,7 @@ $(document).ready(function() {
 	    'course_id' : course_id,
 	    'set_id': set_id,
 	    'problem_id': problem_id,
-	    'problem_body': $("#problem-body").html()
+	    'problem_body': $("#problem-content").html()
 	};
 	send_command(sock, 'signin', params);
     };

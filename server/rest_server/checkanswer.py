@@ -2,11 +2,11 @@ import tornado.ioloop
 import tornado.web
 import tornado.gen
 import logging
-import pgwrapper
+import pg_wrapper
 import os
 
 def task_checkanswer(pg_file, answers, seed, callback=None):
-    callback(pgwrapper.checkanswer(pg_file, answers, int(seed)))
+    callback(pg_wrapper.checkanswer(pg_file, answers, int(seed)))
  
 class CheckAnswer(tornado.web.RequestHandler):
     """Check answers with PG"""
