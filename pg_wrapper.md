@@ -1,4 +1,4 @@
-Python interfaces to PG [\[server/pgwrapper.py\]](https://github.com/sunsern/adaptive-hint/blob/master/server/pgwrapper.py)
+Python interfaces to PG [\[pg_wrapper.py\]](https://github.com/sunsern/adaptive-hint/blob/master/server/rest_server/pg_wrapper.py)
 ----------------------------------------------------
 #### PG rendering
 ```python
