@@ -44,6 +44,13 @@ class StudentConnection(_BaseConnection):
             logging.info("%s updated %s to %s"%(self.student_id,
                                                 boxname,
                                                 value))
+            # broadcast 'student_joined' to teachers
+            self.broadcast(
+                ActiveClients.teachers,
+                json.dumps({'command': 'newstring',
+                            'arguments': args
+                            }))
+
 
     def on_open(self, info):
         """Callback for when a student is connected"""

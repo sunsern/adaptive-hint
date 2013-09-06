@@ -40,10 +40,6 @@ $(document).ready(function() {
 	send_command(sock, 'send_hint', {});
     });
 	
-    $("#render_hint").click(function() {
-	send_command(sock, 'render_hint', {});
-    });
-	
     print("INFO: document loaded");
 	
 });  
